@@ -1,0 +1,1729 @@
+12:06:17,481 graphrag.cli.index INFO Logging enabled at D:\aiwen_python-xinference\mcp\graphrag-more\doupo\logs\indexing-engine.log
+12:06:17,484 graphrag.cli.index INFO Starting pipeline run for: 20250427-120617, dry_run=False
+12:06:17,485 graphrag.cli.index INFO Using default configuration: {
+    "llm": {
+        "api_key": "==== REDACTED ====",
+        "type": "openai_chat",
+        "encoding_model": "cl100k_base",
+        "model": "qwen-plus",
+        "max_tokens": 4000,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "frequency_penalty": 0.0,
+        "presence_penalty": 0.0,
+        "request_timeout": 180.0,
+        "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        "api_version": null,
+        "proxy": null,
+        "audience": null,
+        "deployment_name": null,
+        "model_supports_json": false,
+        "tokens_per_minute": 50000,
+        "requests_per_minute": 1000,
+        "max_retries": 10,
+        "max_retry_wait": 10.0,
+        "sleep_on_rate_limit_recommendation": true,
+        "concurrent_requests": 25,
+        "responses": null
+    },
+    "parallelization": {
+        "stagger": 0.3,
+        "num_threads": 50
+    },
+    "async_mode": "threaded",
+    "root_dir": "D:\\aiwen_python-xinference\\mcp\\graphrag-more\\doupo",
+    "reporting": {
+        "type": "file",
+        "base_dir": "D:\\aiwen_python-xinference\\mcp\\graphrag-more\\doupo\\logs",
+        "storage_account_blob_url": null
+    },
+    "storage": {
+        "type": "file",
+        "base_dir": "D:\\aiwen_python-xinference\\mcp\\graphrag-more\\doupo\\output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "update_index_storage": null,
+    "cache": {
+        "type": "file",
+        "base_dir": "cache",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "input": {
+        "type": "file",
+        "file_type": "text",
+        "base_dir": "input",
+        "storage_account_blob_url": null,
+        "encoding": "utf-8",
+        "file_pattern": ".*\\.txt$",
+        "file_filter": null,
+        "source_column": null,
+        "timestamp_column": null,
+        "timestamp_format": null,
+        "text_column": "text",
+        "title_column": null,
+        "document_attribute_columns": []
+    },
+    "embed_graph": {
+        "enabled": false,
+        "dimensions": 1536,
+        "num_walks": 10,
+        "walk_length": 40,
+        "window_size": 2,
+        "iterations": 3,
+        "random_seed": 597832,
+        "use_lcc": true
+    },
+    "embeddings": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_embedding",
+            "encoding_model": "cl100k_base",
+            "model": "text-embedding-v2",
+            "max_tokens": 4000,
+            "temperature": 0,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": null,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "batch_size": 16,
+        "batch_max_tokens": 8191,
+        "target": "required",
+        "skip": [],
+        "vector_store": {
+            "type": "lancedb",
+            "db_uri": "D:\\aiwen_python-xinference\\mcp\\graphrag-more\\doupo\\output\\lancedb",
+            "collection_name": "default",
+            "overwrite": true
+        },
+        "strategy": null
+    },
+    "chunks": {
+        "size": 1200,
+        "overlap": 100,
+        "group_by_columns": [
+            "id"
+        ],
+        "strategy": "tokens",
+        "encoding_model": "cl100k_base"
+    },
+    "snapshots": {
+        "embeddings": false,
+        "graphml": false,
+        "transient": false
+    },
+    "entity_extraction": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_chat",
+            "encoding_model": "cl100k_base",
+            "model": "qwen-plus",
+            "max_tokens": 4000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "prompt": "prompts/entity_extraction.txt",
+        "entity_types": [
+            "organization",
+            "person",
+            "geo",
+            "event"
+        ],
+        "max_gleanings": 1,
+        "strategy": null,
+        "encoding_model": "cl100k_base"
+    },
+    "summarize_descriptions": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_chat",
+            "encoding_model": "cl100k_base",
+            "model": "qwen-plus",
+            "max_tokens": 4000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "prompt": "prompts/summarize_descriptions.txt",
+        "max_length": 500,
+        "strategy": null
+    },
+    "community_reports": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_chat",
+            "encoding_model": "cl100k_base",
+            "model": "qwen-plus",
+            "max_tokens": 4000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "prompt": "prompts/community_report.txt",
+        "max_length": 2000,
+        "max_input_length": 8000,
+        "strategy": null
+    },
+    "claim_extraction": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_chat",
+            "encoding_model": "cl100k_base",
+            "model": "qwen-plus",
+            "max_tokens": 4000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "enabled": false,
+        "prompt": "prompts/claim_extraction.txt",
+        "description": "Any claims or facts that could be relevant to information discovery.",
+        "max_gleanings": 1,
+        "strategy": null,
+        "encoding_model": "cl100k_base"
+    },
+    "cluster_graph": {
+        "max_cluster_size": 10,
+        "use_lcc": true,
+        "seed": 3735928559
+    },
+    "umap": {
+        "enabled": false
+    },
+    "local_search": {
+        "prompt": "prompts/local_search_system_prompt.txt",
+        "text_unit_prop": 0.5,
+        "community_prop": 0.15,
+        "conversation_history_max_turns": 5,
+        "top_k_entities": 10,
+        "top_k_relationships": 10,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "max_tokens": 12000,
+        "llm_max_tokens": 2000
+    },
+    "global_search": {
+        "map_prompt": "prompts/global_search_map_system_prompt.txt",
+        "reduce_prompt": "prompts/global_search_reduce_system_prompt.txt",
+        "knowledge_prompt": "prompts/global_search_knowledge_system_prompt.txt",
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "max_tokens": 12000,
+        "data_max_tokens": 12000,
+        "map_max_tokens": 1000,
+        "reduce_max_tokens": 2000,
+        "concurrency": 32,
+        "dynamic_search_llm": "gpt-4o-mini",
+        "dynamic_search_threshold": 1,
+        "dynamic_search_keep_parent": false,
+        "dynamic_search_num_repeats": 1,
+        "dynamic_search_use_summary": false,
+        "dynamic_search_concurrent_coroutines": 16,
+        "dynamic_search_max_level": 2
+    },
+    "drift_search": {
+        "prompt": "prompts/drift_search_system_prompt.txt",
+        "reduce_prompt": "prompts/drift_search_reduce_prompt.txt",
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 3,
+        "max_tokens": 12000,
+        "data_max_tokens": 12000,
+        "reduce_max_tokens": 2000,
+        "reduce_temperature": 0.0,
+        "concurrency": 32,
+        "drift_k_followups": 20,
+        "primer_folds": 5,
+        "primer_llm_max_tokens": 12000,
+        "n_depth": 3,
+        "local_search_text_unit_prop": 0.9,
+        "local_search_community_prop": 0.1,
+        "local_search_top_k_mapped_entities": 10,
+        "local_search_top_k_relationships": 10,
+        "local_search_max_data_tokens": 12000,
+        "local_search_temperature": 0.0,
+        "local_search_top_p": 1.0,
+        "local_search_n": 1,
+        "local_search_llm_max_gen_tokens": 2000
+    },
+    "basic_search": {
+        "prompt": "prompts/basic_search_system_prompt.txt",
+        "text_unit_prop": 0.5,
+        "conversation_history_max_turns": 5,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "max_tokens": 12000,
+        "llm_max_tokens": 2000
+    },
+    "encoding_model": "cl100k_base",
+    "skip_workflows": []
+}
+12:06:17,490 graphrag.storage.file_pipeline_storage INFO Creating file storage at D:\aiwen_python-xinference\mcp\graphrag-more\doupo\output
+12:06:17,493 graphrag.index.input.factory INFO loading input from root_dir=input
+12:06:17,493 graphrag.index.input.factory INFO using file storage for input
+12:06:17,495 graphrag.storage.file_pipeline_storage INFO search D:\aiwen_python-xinference\mcp\graphrag-more\doupo\input for files matching .*\.txt$
+12:07:14,641 graphrag.cli.index INFO Logging enabled at D:\aiwen_python-xinference\mcp\graphrag-more\doupo\logs\indexing-engine.log
+12:07:14,644 graphrag.cli.index INFO Starting pipeline run for: 20250427-120714, dry_run=False
+12:07:14,645 graphrag.cli.index INFO Using default configuration: {
+    "llm": {
+        "api_key": "==== REDACTED ====",
+        "type": "openai_chat",
+        "encoding_model": "cl100k_base",
+        "model": "qwen-plus",
+        "max_tokens": 4000,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "frequency_penalty": 0.0,
+        "presence_penalty": 0.0,
+        "request_timeout": 180.0,
+        "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        "api_version": null,
+        "proxy": null,
+        "audience": null,
+        "deployment_name": null,
+        "model_supports_json": false,
+        "tokens_per_minute": 50000,
+        "requests_per_minute": 1000,
+        "max_retries": 10,
+        "max_retry_wait": 10.0,
+        "sleep_on_rate_limit_recommendation": true,
+        "concurrent_requests": 25,
+        "responses": null
+    },
+    "parallelization": {
+        "stagger": 0.3,
+        "num_threads": 50
+    },
+    "async_mode": "threaded",
+    "root_dir": "D:\\aiwen_python-xinference\\mcp\\graphrag-more\\doupo",
+    "reporting": {
+        "type": "file",
+        "base_dir": "D:\\aiwen_python-xinference\\mcp\\graphrag-more\\doupo\\logs",
+        "storage_account_blob_url": null
+    },
+    "storage": {
+        "type": "file",
+        "base_dir": "D:\\aiwen_python-xinference\\mcp\\graphrag-more\\doupo\\output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "update_index_storage": null,
+    "cache": {
+        "type": "file",
+        "base_dir": "cache",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "input": {
+        "type": "file",
+        "file_type": "text",
+        "base_dir": "input",
+        "storage_account_blob_url": null,
+        "encoding": "utf-8",
+        "file_pattern": ".*\\.txt$",
+        "file_filter": null,
+        "source_column": null,
+        "timestamp_column": null,
+        "timestamp_format": null,
+        "text_column": "text",
+        "title_column": null,
+        "document_attribute_columns": []
+    },
+    "embed_graph": {
+        "enabled": false,
+        "dimensions": 1536,
+        "num_walks": 10,
+        "walk_length": 40,
+        "window_size": 2,
+        "iterations": 3,
+        "random_seed": 597832,
+        "use_lcc": true
+    },
+    "embeddings": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_embedding",
+            "encoding_model": "cl100k_base",
+            "model": "text-embedding-v2",
+            "max_tokens": 4000,
+            "temperature": 0,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": null,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "batch_size": 16,
+        "batch_max_tokens": 8191,
+        "target": "required",
+        "skip": [],
+        "vector_store": {
+            "type": "lancedb",
+            "db_uri": "D:\\aiwen_python-xinference\\mcp\\graphrag-more\\doupo\\output\\lancedb",
+            "collection_name": "default",
+            "overwrite": true
+        },
+        "strategy": null
+    },
+    "chunks": {
+        "size": 1200,
+        "overlap": 100,
+        "group_by_columns": [
+            "id"
+        ],
+        "strategy": "tokens",
+        "encoding_model": "cl100k_base"
+    },
+    "snapshots": {
+        "embeddings": false,
+        "graphml": false,
+        "transient": false
+    },
+    "entity_extraction": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_chat",
+            "encoding_model": "cl100k_base",
+            "model": "qwen-plus",
+            "max_tokens": 4000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "prompt": "prompts/entity_extraction.txt",
+        "entity_types": [
+            "organization",
+            "person",
+            "geo",
+            "event"
+        ],
+        "max_gleanings": 1,
+        "strategy": null,
+        "encoding_model": "cl100k_base"
+    },
+    "summarize_descriptions": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_chat",
+            "encoding_model": "cl100k_base",
+            "model": "qwen-plus",
+            "max_tokens": 4000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "prompt": "prompts/summarize_descriptions.txt",
+        "max_length": 500,
+        "strategy": null
+    },
+    "community_reports": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_chat",
+            "encoding_model": "cl100k_base",
+            "model": "qwen-plus",
+            "max_tokens": 4000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "prompt": "prompts/community_report.txt",
+        "max_length": 2000,
+        "max_input_length": 8000,
+        "strategy": null
+    },
+    "claim_extraction": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_chat",
+            "encoding_model": "cl100k_base",
+            "model": "qwen-plus",
+            "max_tokens": 4000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "enabled": false,
+        "prompt": "prompts/claim_extraction.txt",
+        "description": "Any claims or facts that could be relevant to information discovery.",
+        "max_gleanings": 1,
+        "strategy": null,
+        "encoding_model": "cl100k_base"
+    },
+    "cluster_graph": {
+        "max_cluster_size": 10,
+        "use_lcc": true,
+        "seed": 3735928559
+    },
+    "umap": {
+        "enabled": false
+    },
+    "local_search": {
+        "prompt": "prompts/local_search_system_prompt.txt",
+        "text_unit_prop": 0.5,
+        "community_prop": 0.15,
+        "conversation_history_max_turns": 5,
+        "top_k_entities": 10,
+        "top_k_relationships": 10,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "max_tokens": 12000,
+        "llm_max_tokens": 2000
+    },
+    "global_search": {
+        "map_prompt": "prompts/global_search_map_system_prompt.txt",
+        "reduce_prompt": "prompts/global_search_reduce_system_prompt.txt",
+        "knowledge_prompt": "prompts/global_search_knowledge_system_prompt.txt",
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "max_tokens": 12000,
+        "data_max_tokens": 12000,
+        "map_max_tokens": 1000,
+        "reduce_max_tokens": 2000,
+        "concurrency": 32,
+        "dynamic_search_llm": "gpt-4o-mini",
+        "dynamic_search_threshold": 1,
+        "dynamic_search_keep_parent": false,
+        "dynamic_search_num_repeats": 1,
+        "dynamic_search_use_summary": false,
+        "dynamic_search_concurrent_coroutines": 16,
+        "dynamic_search_max_level": 2
+    },
+    "drift_search": {
+        "prompt": "prompts/drift_search_system_prompt.txt",
+        "reduce_prompt": "prompts/drift_search_reduce_prompt.txt",
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 3,
+        "max_tokens": 12000,
+        "data_max_tokens": 12000,
+        "reduce_max_tokens": 2000,
+        "reduce_temperature": 0.0,
+        "concurrency": 32,
+        "drift_k_followups": 20,
+        "primer_folds": 5,
+        "primer_llm_max_tokens": 12000,
+        "n_depth": 3,
+        "local_search_text_unit_prop": 0.9,
+        "local_search_community_prop": 0.1,
+        "local_search_top_k_mapped_entities": 10,
+        "local_search_top_k_relationships": 10,
+        "local_search_max_data_tokens": 12000,
+        "local_search_temperature": 0.0,
+        "local_search_top_p": 1.0,
+        "local_search_n": 1,
+        "local_search_llm_max_gen_tokens": 2000
+    },
+    "basic_search": {
+        "prompt": "prompts/basic_search_system_prompt.txt",
+        "text_unit_prop": 0.5,
+        "conversation_history_max_turns": 5,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "max_tokens": 12000,
+        "llm_max_tokens": 2000
+    },
+    "encoding_model": "cl100k_base",
+    "skip_workflows": []
+}
+12:07:14,647 graphrag.storage.file_pipeline_storage INFO Creating file storage at D:\aiwen_python-xinference\mcp\graphrag-more\doupo\output
+12:07:14,648 graphrag.index.input.factory INFO loading input from root_dir=input
+12:07:14,649 graphrag.index.input.factory INFO using file storage for input
+12:07:14,651 graphrag.storage.file_pipeline_storage INFO search D:\aiwen_python-xinference\mcp\graphrag-more\doupo\input for files matching .*\.txt$
+12:07:14,652 graphrag.index.input.text INFO found text files from input, found [('doupocangqiong.txt', {})]
+12:07:14,654 graphrag.index.input.text INFO Found 1 files, loading 1
+12:07:14,660 graphrag.index.run.run_workflows INFO Final # of rows loaded: 1
+12:07:14,679 graphrag.utils.storage INFO reading table from storage: input.parquet
+12:07:16,220 graphrag.utils.storage INFO reading table from storage: input.parquet
+12:07:16,226 graphrag.utils.storage INFO reading table from storage: create_base_text_units.parquet
+12:07:16,280 graphrag.utils.storage INFO reading table from storage: create_base_text_units.parquet
+12:07:25,683 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:07:27,850 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:07:40,247 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:07:42,446 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:07:51,398 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:08:01,40 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:08:01,369 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:08:03,951 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:08:06,507 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:08:07,108 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:08:07,398 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:08:08,685 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:08:09,167 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:08:11,204 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:08:11,269 graphrag.utils.storage INFO reading table from storage: base_relationship_edges.parquet
+12:08:58,629 graphrag.utils.storage INFO reading table from storage: base_entity_nodes.parquet
+12:08:58,699 graphrag.utils.storage INFO reading table from storage: base_relationship_edges.parquet
+12:08:58,793 graphrag.utils.storage INFO reading table from storage: base_entity_nodes.parquet
+12:08:58,799 graphrag.utils.storage INFO reading table from storage: base_relationship_edges.parquet
+12:08:58,805 graphrag.utils.storage INFO reading table from storage: base_communities.parquet
+12:08:58,894 graphrag.utils.storage INFO reading table from storage: base_entity_nodes.parquet
+12:08:58,901 graphrag.utils.storage INFO reading table from storage: base_relationship_edges.parquet
+12:08:58,907 graphrag.utils.storage INFO reading table from storage: base_communities.parquet
+12:08:59,7 graphrag.utils.storage INFO reading table from storage: create_base_text_units.parquet
+12:08:59,13 graphrag.utils.storage INFO reading table from storage: create_final_entities.parquet
+12:08:59,19 graphrag.utils.storage INFO reading table from storage: create_final_relationships.parquet
+12:08:59,137 graphrag.utils.storage INFO reading table from storage: create_final_nodes.parquet
+12:08:59,143 graphrag.utils.storage INFO reading table from storage: create_final_relationships.parquet
+12:08:59,150 graphrag.utils.storage INFO reading table from storage: create_final_entities.parquet
+12:08:59,155 graphrag.utils.storage INFO reading table from storage: create_final_communities.parquet
+12:08:59,189 graphrag.index.operations.summarize_communities.prepare_community_reports INFO Number of nodes at level=0 => 14
+12:09:22,154 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:09:26,498 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:09:29,368 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:09:43,485 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:09:48,581 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:09:58,512 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:10:04,699 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:10:12,867 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:10:12,881 graphrag.index.operations.summarize_communities.community_reports_extractor.community_reports_extractor ERROR error generating community report
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 266, in _parse_json_string
+    return json.loads(value) if value else None
+           ^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 231, in try_receive_json
+    raw_json = self._parse_json_string(json_string)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 269, in _parse_json_string
+    raise FailedToGenerateValidJsonError(msg) from err
+fnllm.services.errors.FailedToGenerateValidJsonError: JSON response is not a valid JSON, response={{
+    "title": "萧炎与乌坦城测验社区",
+    "summary": "该社区围绕萧炎和乌坦城展开，萧炎曾是乌坦城的天才少年，但因失去斗之气旋，实力大幅下降。萧炎在测验魔石碑上的结果引发了周围人的嘲笑，与萧媚的测验结果形成对比，加深了他的失落感。中年男子负责宣布测验结果，冷漠地对待萧炎。",
+    "rating": 3.0,
+    "rating_explanation": "该社区的影响力较低，主要涉及个人和地方层面的测验结果及社会反应，对更广泛的社会或政治影响有限。",
+    "findings": [
+        {{
+            "summary": "萧炎的背景与失落",
+            "explanation": "萧炎曾是乌坦城的天才少年，拥有非凡的天赋。然而，三年前他失去了斗之气旋，实力大幅下降，目前测验结果显示仅为斗之力三段。这一变化使他从昔日的天才沦为被周围人嘲笑的对象，承受着不屑与嘲讽。萧炎的失落感不仅源于个人实力的下降，还来自社会对他的态度转变 [Data: Entities (0), Relationships (0, 2)]。"
+        }},
+        {{
+            "summary": "测验魔石碑的重要性",
+            "explanation": "测验魔石碑是用于测试斗之力和斗之气的重要工具。萧炎和萧媚都在此进行了测验，萧炎的结果为斗之力三段，而萧媚则获得了斗之气七段的高级结果，这一对比加深了萧炎的失落感。测验魔石碑的结果对个人声誉和社会评价有着显著影响 [Data: Entities (4), Relationships (0, 6)]。"
+        }},
+        {{
+            "summary": "萧媚的崛起",
+            "explanation": "萧媚是一位十四岁的少女，拥有七段斗之气的修为。她的测验结果使她成为全场瞩目的焦点，作为家族中的种子级别人物，她展现出优秀的天赋和光明的前途，备受期待。萧媚的成功与萧炎的失落形成了鲜明对比 [Data: Entities (1), Relationships (6, 13)]。"
+        }},
+        {{
+            "summary": "乌坦城的反应",
+            "explanation": "乌坦城曾因萧炎的天赋而赞誉他，但现在因测验结果而对萧炎充满失望。萧炎的失落感不仅源于个人实力的下降，还来自乌坦城居民对他的态度转变。这一社会反应反映了个人成就与社会评价之间的紧密联系 [Data: Relationships (2)]。"
+        }},
+        {{
+            "summary": "中年男子的角色",
+            "explanation": "中年男子负责宣布测验魔石碑上的结果，冷漠地对待萧炎。他的态度反映了社会对萧炎当前状态的普遍看法，进一步加剧了萧炎的失落感。中年男子的角色在社区中起到了放大社会评价的作用 [Data: Entities (2), Relationships (8)]。"
+        }}
+    ]
+}}.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 162, in invoke_json
+    return await self.try_receive_json(delegate, prompt, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 254, in try_receive_json
+    raise FailedToGenerateValidJsonError from err
+fnllm.services.errors.FailedToGenerateValidJsonError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\base\base.py", line 112, in __call__
+    return await self._invoke(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\base\base.py", line 128, in _invoke
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 70, in invoke
+    return await this.invoke_json(delegate, prompt, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 166, in invoke_json
+    raise FailedToGenerateValidJsonError from error
+fnllm.services.errors.FailedToGenerateValidJsonError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\index\operations\summarize_communities\community_reports_extractor\community_reports_extractor.py", line 80, in __call__
+    response = await self._llm(
+               ^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\openai\llm\chat.py", line 83, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\openai\llm\features\tools_parsing.py", line 120, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\base\base.py", line 116, in __call__
+    await self._events.on_error(
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\index\llm\load_llm.py", line 52, in on_error
+    self._on_error(error, traceback, arguments)
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\index\llm\load_llm.py", line 169, in on_error
+    callbacks.error("Error Invoking LLM", error, stack, details)
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\callbacks\workflow_callbacks_manager.py", line 51, in error
+    callback.error(message, cause, stack, details)
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\callbacks\file_workflow_callbacks.py", line 37, in error
+    json.dumps(
+  File "D:\Anaconda3\envs\graphrag\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 202, in encode
+    chunks = list(chunks)
+             ^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type ModelMetaclass is not JSON serializable
+12:10:12,888 graphrag.callbacks.file_workflow_callbacks INFO Community Report Extraction Error details=None
+12:10:12,888 graphrag.index.operations.summarize_communities.strategies WARNING No report found for community: 0
+12:10:29,978 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:10:29,985 graphrag.index.operations.summarize_communities.community_reports_extractor.community_reports_extractor ERROR error generating community report
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 266, in _parse_json_string
+    return json.loads(value) if value else None
+           ^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 231, in try_receive_json
+    raw_json = self._parse_json_string(json_string)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 269, in _parse_json_string
+    raise FailedToGenerateValidJsonError(msg) from err
+fnllm.services.errors.FailedToGenerateValidJsonError: JSON response is not a valid JSON, response={{
+    "title": "Family and 斗之气旋 Community",
+    "summary": "The community centers around the 'Family' organization, which is focused on cultivating fighters known as '斗者'. Key entities include 'Family', '族长' (the leader of the family and萧炎's father), and '斗之气旋', a significant energy formation that marks a斗者的 achievement. Relationships highlight萧炎's journey with 斗之气旋 and his familial ties.",
+    "rating": 3.0,
+    "rating_explanation": "The impact severity rating is low to moderate, as the community revolves around personal development and family dynamics rather than posing a direct threat.",
+    "findings": [
+        {{
+            "summary": "Family's Role in Cultivating 斗者",
+            "explanation": "The 'Family' is a central organization within this community, dedicated to nurturing 斗者. Key members include萧炎,萧媚, and萧薰儿. Initially,萧炎's poor performance in tests led to disappointment within the family, but over time, his growth has changed their perception [Data: Entities (6)]. The family's focus on cultivating 斗者 highlights their commitment to excellence and legacy, though it also reveals the pressure placed on members to meet expectations."
+        }},
+        {{
+            "summary": "萧炎's Connection to 斗之气旋",
+            "explanation": "萧炎 is notable for his association with 斗之气旋, a crucial energy formation for 斗者. Initially, he successfully condensed a 斗之气旋, showcasing his potential. However, he later lost this ability, which likely impacted his standing within the 'Family' [Data: Relationships (18)]. This fluctuation in his abilities underscores the challenges faced by 斗者 and the importance of perseverance in this community."
+        }},
+        {{
+            "summary": "族长's Leadership and Influence",
+            "explanation": "族长 serves as the leader of the 'Family' and is also萧炎's father. His role may provide protection or support for萧炎, especially in light of the challenges he has faced. As the head of the family, 族长's decisions and leadership could significantly influence the development and reputation of the 'Family' [Data: Relationships (9)]. His position highlights the importance of familial leadership in shaping the trajectory of its members."
+        }},
+        {{
+            "summary": "The Significance of 斗之气旋",
+            "explanation": "斗之气旋 represents a pinnacle achievement for 斗者, as it is formed from the concentration of 斗之气. This energy formation is not only a symbol of power but also a marker of progress and skill within the 斗者 community [Data: Entities (13)]. Its importance is underscored by萧炎's ability to initially achieve it and his subsequent loss, indicating the fluctuating nature of a 斗者的 journey."
+        }},
+        {{
+            "summary": "萧炎's Growth and Changing Perception",
+            "explanation": "萧炎's journey within the 'Family' highlights themes of resilience and growth. Initially viewed as a disappointment due to his poor test results,萧炎 has worked to change this perception over time. His connection to 斗之气旋, despite losing it, demonstrates his potential and determination [Data: Entities (6), Relationships (18)]. This arc underscores the importance of perseverance and the potential for redemption within the community."
+        }}
+    ]
+}}.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 162, in invoke_json
+    return await self.try_receive_json(delegate, prompt, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 254, in try_receive_json
+    raise FailedToGenerateValidJsonError from err
+fnllm.services.errors.FailedToGenerateValidJsonError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\base\base.py", line 112, in __call__
+    return await self._invoke(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\base\base.py", line 128, in _invoke
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 70, in invoke
+    return await this.invoke_json(delegate, prompt, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 166, in invoke_json
+    raise FailedToGenerateValidJsonError from error
+fnllm.services.errors.FailedToGenerateValidJsonError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\index\operations\summarize_communities\community_reports_extractor\community_reports_extractor.py", line 80, in __call__
+    response = await self._llm(
+               ^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\openai\llm\chat.py", line 83, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\openai\llm\features\tools_parsing.py", line 120, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\base\base.py", line 116, in __call__
+    await self._events.on_error(
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\index\llm\load_llm.py", line 52, in on_error
+    self._on_error(error, traceback, arguments)
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\index\llm\load_llm.py", line 169, in on_error
+    callbacks.error("Error Invoking LLM", error, stack, details)
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\callbacks\workflow_callbacks_manager.py", line 51, in error
+    callback.error(message, cause, stack, details)
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\callbacks\file_workflow_callbacks.py", line 37, in error
+    json.dumps(
+  File "D:\Anaconda3\envs\graphrag\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 202, in encode
+    chunks = list(chunks)
+             ^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type ModelMetaclass is not JSON serializable
+12:10:29,989 graphrag.callbacks.file_workflow_callbacks INFO Community Report Extraction Error details=None
+12:10:29,990 graphrag.index.operations.summarize_communities.strategies WARNING No report found for community: 2
+12:10:30,112 graphrag.utils.storage INFO reading table from storage: create_final_documents.parquet
+12:10:30,121 graphrag.utils.storage INFO reading table from storage: create_final_relationships.parquet
+12:10:30,127 graphrag.utils.storage INFO reading table from storage: create_final_text_units.parquet
+12:10:30,132 graphrag.utils.storage INFO reading table from storage: create_final_entities.parquet
+12:10:30,139 graphrag.utils.storage INFO reading table from storage: create_final_community_reports.parquet
+12:10:30,148 graphrag.index.flows.generate_text_embeddings INFO Creating embeddings
+12:10:30,148 graphrag.index.operations.embed_text.embed_text INFO using vector store lancedb with container_name default for embedding text_unit.text: default-text_unit-text
+12:10:30,623 graphrag.index.operations.embed_text.strategies.openai INFO embedding 4 inputs via 4 snippets using 1 batches. max_batch_size=16, max_tokens=8191
+12:10:31,1 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+12:10:31,286 graphrag.index.operations.embed_text.embed_text INFO using vector store lancedb with container_name default for embedding entity.description: default-entity-description
+12:10:31,292 graphrag.index.operations.embed_text.strategies.openai INFO embedding 24 inputs via 24 snippets using 2 batches. max_batch_size=16, max_tokens=8191
+12:10:31,621 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+12:10:31,769 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+12:10:31,869 graphrag.index.operations.embed_text.embed_text INFO using vector store lancedb with container_name default for embedding community.full_content: default-community-full_content
+12:10:31,874 graphrag.index.operations.embed_text.strategies.openai INFO embedding 1 inputs via 1 snippets using 1 batches. max_batch_size=16, max_tokens=8191
+12:10:31,997 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+12:10:32,147 graphrag.cli.index INFO All workflows completed successfully.
+12:11:29,258 graphrag.cli.index INFO Logging enabled at D:\aiwen_python-xinference\mcp\graphrag-more\doupo\logs\indexing-engine.log
+12:11:29,262 graphrag.cli.index INFO Starting pipeline run for: 20250427-121129, dry_run=False
+12:11:29,263 graphrag.cli.index INFO Using default configuration: {
+    "llm": {
+        "api_key": "==== REDACTED ====",
+        "type": "openai_chat",
+        "encoding_model": "cl100k_base",
+        "model": "qwen-plus",
+        "max_tokens": 4000,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "frequency_penalty": 0.0,
+        "presence_penalty": 0.0,
+        "request_timeout": 180.0,
+        "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        "api_version": null,
+        "proxy": null,
+        "audience": null,
+        "deployment_name": null,
+        "model_supports_json": false,
+        "tokens_per_minute": 50000,
+        "requests_per_minute": 1000,
+        "max_retries": 10,
+        "max_retry_wait": 10.0,
+        "sleep_on_rate_limit_recommendation": true,
+        "concurrent_requests": 25,
+        "responses": null
+    },
+    "parallelization": {
+        "stagger": 0.3,
+        "num_threads": 50
+    },
+    "async_mode": "threaded",
+    "root_dir": "D:\\aiwen_python-xinference\\mcp\\graphrag-more\\doupo",
+    "reporting": {
+        "type": "file",
+        "base_dir": "D:\\aiwen_python-xinference\\mcp\\graphrag-more\\doupo\\logs",
+        "storage_account_blob_url": null
+    },
+    "storage": {
+        "type": "file",
+        "base_dir": "D:\\aiwen_python-xinference\\mcp\\graphrag-more\\doupo\\output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "update_index_storage": null,
+    "cache": {
+        "type": "file",
+        "base_dir": "cache",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "input": {
+        "type": "file",
+        "file_type": "text",
+        "base_dir": "input",
+        "storage_account_blob_url": null,
+        "encoding": "utf-8",
+        "file_pattern": ".*\\.txt$",
+        "file_filter": null,
+        "source_column": null,
+        "timestamp_column": null,
+        "timestamp_format": null,
+        "text_column": "text",
+        "title_column": null,
+        "document_attribute_columns": []
+    },
+    "embed_graph": {
+        "enabled": false,
+        "dimensions": 1536,
+        "num_walks": 10,
+        "walk_length": 40,
+        "window_size": 2,
+        "iterations": 3,
+        "random_seed": 597832,
+        "use_lcc": true
+    },
+    "embeddings": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_embedding",
+            "encoding_model": "cl100k_base",
+            "model": "text-embedding-v2",
+            "max_tokens": 4000,
+            "temperature": 0,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": null,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "batch_size": 16,
+        "batch_max_tokens": 8191,
+        "target": "required",
+        "skip": [],
+        "vector_store": {
+            "type": "lancedb",
+            "db_uri": "D:\\aiwen_python-xinference\\mcp\\graphrag-more\\doupo\\output\\lancedb",
+            "collection_name": "default",
+            "overwrite": true
+        },
+        "strategy": null
+    },
+    "chunks": {
+        "size": 1200,
+        "overlap": 100,
+        "group_by_columns": [
+            "id"
+        ],
+        "strategy": "tokens",
+        "encoding_model": "cl100k_base"
+    },
+    "snapshots": {
+        "embeddings": false,
+        "graphml": false,
+        "transient": false
+    },
+    "entity_extraction": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_chat",
+            "encoding_model": "cl100k_base",
+            "model": "qwen-plus",
+            "max_tokens": 4000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "prompt": "prompts/entity_extraction.txt",
+        "entity_types": [
+            "organization",
+            "person",
+            "geo",
+            "event"
+        ],
+        "max_gleanings": 1,
+        "strategy": null,
+        "encoding_model": "cl100k_base"
+    },
+    "summarize_descriptions": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_chat",
+            "encoding_model": "cl100k_base",
+            "model": "qwen-plus",
+            "max_tokens": 4000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "prompt": "prompts/summarize_descriptions.txt",
+        "max_length": 500,
+        "strategy": null
+    },
+    "community_reports": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_chat",
+            "encoding_model": "cl100k_base",
+            "model": "qwen-plus",
+            "max_tokens": 4000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "prompt": "prompts/community_report.txt",
+        "max_length": 2000,
+        "max_input_length": 8000,
+        "strategy": null
+    },
+    "claim_extraction": {
+        "llm": {
+            "api_key": "==== REDACTED ====",
+            "type": "openai_chat",
+            "encoding_model": "cl100k_base",
+            "model": "qwen-plus",
+            "max_tokens": 4000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "audience": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 50000,
+            "requests_per_minute": 1000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 25,
+            "responses": null
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "enabled": false,
+        "prompt": "prompts/claim_extraction.txt",
+        "description": "Any claims or facts that could be relevant to information discovery.",
+        "max_gleanings": 1,
+        "strategy": null,
+        "encoding_model": "cl100k_base"
+    },
+    "cluster_graph": {
+        "max_cluster_size": 10,
+        "use_lcc": true,
+        "seed": 3735928559
+    },
+    "umap": {
+        "enabled": false
+    },
+    "local_search": {
+        "prompt": "prompts/local_search_system_prompt.txt",
+        "text_unit_prop": 0.5,
+        "community_prop": 0.15,
+        "conversation_history_max_turns": 5,
+        "top_k_entities": 10,
+        "top_k_relationships": 10,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "max_tokens": 12000,
+        "llm_max_tokens": 2000
+    },
+    "global_search": {
+        "map_prompt": "prompts/global_search_map_system_prompt.txt",
+        "reduce_prompt": "prompts/global_search_reduce_system_prompt.txt",
+        "knowledge_prompt": "prompts/global_search_knowledge_system_prompt.txt",
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "max_tokens": 12000,
+        "data_max_tokens": 12000,
+        "map_max_tokens": 1000,
+        "reduce_max_tokens": 2000,
+        "concurrency": 32,
+        "dynamic_search_llm": "gpt-4o-mini",
+        "dynamic_search_threshold": 1,
+        "dynamic_search_keep_parent": false,
+        "dynamic_search_num_repeats": 1,
+        "dynamic_search_use_summary": false,
+        "dynamic_search_concurrent_coroutines": 16,
+        "dynamic_search_max_level": 2
+    },
+    "drift_search": {
+        "prompt": "prompts/drift_search_system_prompt.txt",
+        "reduce_prompt": "prompts/drift_search_reduce_prompt.txt",
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 3,
+        "max_tokens": 12000,
+        "data_max_tokens": 12000,
+        "reduce_max_tokens": 2000,
+        "reduce_temperature": 0.0,
+        "concurrency": 32,
+        "drift_k_followups": 20,
+        "primer_folds": 5,
+        "primer_llm_max_tokens": 12000,
+        "n_depth": 3,
+        "local_search_text_unit_prop": 0.9,
+        "local_search_community_prop": 0.1,
+        "local_search_top_k_mapped_entities": 10,
+        "local_search_top_k_relationships": 10,
+        "local_search_max_data_tokens": 12000,
+        "local_search_temperature": 0.0,
+        "local_search_top_p": 1.0,
+        "local_search_n": 1,
+        "local_search_llm_max_gen_tokens": 2000
+    },
+    "basic_search": {
+        "prompt": "prompts/basic_search_system_prompt.txt",
+        "text_unit_prop": 0.5,
+        "conversation_history_max_turns": 5,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "max_tokens": 12000,
+        "llm_max_tokens": 2000
+    },
+    "encoding_model": "cl100k_base",
+    "skip_workflows": []
+}
+12:11:29,265 graphrag.storage.file_pipeline_storage INFO Creating file storage at D:\aiwen_python-xinference\mcp\graphrag-more\doupo\output
+12:11:29,267 graphrag.index.input.factory INFO loading input from root_dir=input
+12:11:29,267 graphrag.index.input.factory INFO using file storage for input
+12:11:29,269 graphrag.storage.file_pipeline_storage INFO search D:\aiwen_python-xinference\mcp\graphrag-more\doupo\input for files matching .*\.txt$
+12:11:29,269 graphrag.index.input.text INFO found text files from input, found [('doupocangqiong.txt', {}), ('doupocangqiong2.txt', {})]
+12:11:29,274 graphrag.index.input.text INFO Found 2 files, loading 2
+12:11:29,277 graphrag.index.run.run_workflows INFO Final # of rows loaded: 2
+12:11:29,294 graphrag.utils.storage INFO reading table from storage: input.parquet
+12:11:30,786 graphrag.utils.storage INFO reading table from storage: input.parquet
+12:11:30,792 graphrag.utils.storage INFO reading table from storage: create_base_text_units.parquet
+12:11:30,849 graphrag.utils.storage INFO reading table from storage: create_base_text_units.parquet
+12:11:42,8 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:11:53,779 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:11:57,401 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:11:57,470 graphrag.utils.storage INFO reading table from storage: base_relationship_edges.parquet
+12:12:10,337 graphrag.utils.storage INFO reading table from storage: base_entity_nodes.parquet
+12:12:10,410 graphrag.utils.storage INFO reading table from storage: base_relationship_edges.parquet
+12:12:10,504 graphrag.utils.storage INFO reading table from storage: base_entity_nodes.parquet
+12:12:10,509 graphrag.utils.storage INFO reading table from storage: base_relationship_edges.parquet
+12:12:10,516 graphrag.utils.storage INFO reading table from storage: base_communities.parquet
+12:12:10,607 graphrag.utils.storage INFO reading table from storage: base_entity_nodes.parquet
+12:12:10,614 graphrag.utils.storage INFO reading table from storage: base_relationship_edges.parquet
+12:12:10,621 graphrag.utils.storage INFO reading table from storage: base_communities.parquet
+12:12:10,726 graphrag.utils.storage INFO reading table from storage: create_base_text_units.parquet
+12:12:10,732 graphrag.utils.storage INFO reading table from storage: create_final_entities.parquet
+12:12:10,738 graphrag.utils.storage INFO reading table from storage: create_final_relationships.parquet
+12:12:10,856 graphrag.utils.storage INFO reading table from storage: create_final_nodes.parquet
+12:12:10,862 graphrag.utils.storage INFO reading table from storage: create_final_relationships.parquet
+12:12:10,870 graphrag.utils.storage INFO reading table from storage: create_final_entities.parquet
+12:12:10,875 graphrag.utils.storage INFO reading table from storage: create_final_communities.parquet
+12:12:10,906 graphrag.index.operations.summarize_communities.prepare_community_reports INFO Number of nodes at level=0 => 21
+12:12:32,65 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:12:47,56 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:12:47,438 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:12:53,589 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:13:04,373 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:13:17,223 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:13:21,125 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:13:25,254 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:13:25,328 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:13:41,342 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:13:47,468 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:13:58,465 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:13:58,488 graphrag.index.operations.summarize_communities.community_reports_extractor.community_reports_extractor ERROR error generating community report
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 266, in _parse_json_string
+    return json.loads(value) if value else None
+           ^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 231, in try_receive_json
+    raw_json = self._parse_json_string(json_string)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 269, in _parse_json_string
+    raise FailedToGenerateValidJsonError(msg) from err
+fnllm.services.errors.FailedToGenerateValidJsonError: JSON response is not a valid JSON, response={{
+    "title": "萧媚与萧薰儿的斗之气测试社区",
+    "summary": "该社区围绕斗之气测试展开，主要涉及萧媚和萧薰儿两位少女的测试结果及其影响。萧媚因获得七段斗之气的成绩成为全场焦点，而萧薰儿则因出众的美貌与气质备受关注。测试结果吸引了人群的关注，并通过测试员的宣布进一步放大了其影响力。",
+    "rating": 3.0,
+    "rating_explanation": "影响严重程度较低，主要因为该社区集中在斗之气测试活动及其社会反响上，未涉及重大冲突或威胁。",
+    "findings": [
+        {{
+            "summary": "萧媚的七段斗之气成绩",
+            "explanation": "萧媚在斗之气测试中取得了七段的高级成绩，这一结果使她成为全场的焦点。她的测验结果不仅显示了她的天赋，还让她在家族中被视为种子级别人物，备受期待。萧媚的成绩通过魔石碑进行了测试和验证，并引起了围观人群的羡慕声。[Data: Entities (8, 12); Relationships (14, 21, 23)]"
+        }},
+        {{
+            "summary": "萧薰儿的关注与家族背景",
+            "explanation": "萧薰儿是一位身着紫色衣裙、清冷淡然的少女，因出众的美貌与气质而备受众人注目。她作为家族成员之一，可能也是重点培养对象，这表明她在社区中的地位较高。虽然她的斗之气段位未明确提及，但她的家族背景和公众关注表明她的重要性。[Data: Entities (15); Relationships (27)]"
+        }},
+        {{
+            "summary": "斗之气测试与魔石碑的作用",
+            "explanation": "斗之气测试是一项用于评估个人斗之气段位的活动，其中魔石碑起到了关键作用。萧媚的成绩正是通过魔石碑测试获得的，这显示了魔石碑在社区中的权威性和重要性。魔石碑不仅是测试工具，也是验证测试结果的标准工具。[Data: Entities (16, 17); Relationships (14, 21)]"
+        }},
+        {{
+            "summary": "测试员和人群的角色",
+            "explanation": "测试员负责主持斗之气测试并宣布成绩，这一角色对于活动的顺利进行至关重要。测试员的宣布吸引了人群的关注，人群对测试结果表现出浓厚的兴趣，并对萧媚的成绩发出羡慕声。测试员和人群之间的互动进一步放大了测试结果的影响。[Data: Entities (19, 18); Relationships (33, 34)]"
+        }},
+        {{
+            "summary": "萧媚与萧炎的对比",
+            "explanation": "萧媚的高级斗之气成绩与萧炎的低级结果形成了鲜明对比，这一对比加深了萧炎的失落感。萧媚的成功不仅体现了她的个人能力，也反映了她在测试中的优越表现，进一步凸显了社区中不同个体之间的差异。[Data: Relationships (13)]"
+        }}
+    ]
+}}.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 162, in invoke_json
+    return await self.try_receive_json(delegate, prompt, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 254, in try_receive_json
+    raise FailedToGenerateValidJsonError from err
+fnllm.services.errors.FailedToGenerateValidJsonError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\base\base.py", line 112, in __call__
+    return await self._invoke(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\base\base.py", line 128, in _invoke
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 70, in invoke
+    return await this.invoke_json(delegate, prompt, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 166, in invoke_json
+    raise FailedToGenerateValidJsonError from error
+fnllm.services.errors.FailedToGenerateValidJsonError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\index\operations\summarize_communities\community_reports_extractor\community_reports_extractor.py", line 80, in __call__
+    response = await self._llm(
+               ^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\openai\llm\chat.py", line 83, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\openai\llm\features\tools_parsing.py", line 120, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\base\base.py", line 116, in __call__
+    await self._events.on_error(
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\index\llm\load_llm.py", line 52, in on_error
+    self._on_error(error, traceback, arguments)
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\index\llm\load_llm.py", line 169, in on_error
+    callbacks.error("Error Invoking LLM", error, stack, details)
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\callbacks\workflow_callbacks_manager.py", line 51, in error
+    callback.error(message, cause, stack, details)
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\callbacks\file_workflow_callbacks.py", line 37, in error
+    json.dumps(
+  File "D:\Anaconda3\envs\graphrag\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 202, in encode
+    chunks = list(chunks)
+             ^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type ModelMetaclass is not JSON serializable
+12:13:58,494 graphrag.callbacks.file_workflow_callbacks INFO Community Report Extraction Error details=None
+12:13:58,494 graphrag.index.operations.summarize_communities.strategies WARNING No report found for community: 2
+12:14:05,705 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:14:05,716 graphrag.index.operations.summarize_communities.community_reports_extractor.community_reports_extractor ERROR error generating community report
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 266, in _parse_json_string
+    return json.loads(value) if value else None
+           ^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 231, in try_receive_json
+    raw_json = self._parse_json_string(json_string)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 269, in _parse_json_string
+    raise FailedToGenerateValidJsonError(msg) from err
+fnllm.services.errors.FailedToGenerateValidJsonError: JSON response is not a valid JSON, response={{
+    "title": "Family and 斗之气旋 Community",
+    "summary": "The community centers around the Family, which is an organization focused on cultivating fighters known as 斗者. Key members of the Family include Xiao Yan, Xiao Mei, and Xiao Xun'er, with Xiao Yan's father serving as the clan leader. The community also involves 斗之气旋, an energy vortex important for 斗者, which Xiao Yan has successfully created but later lost.",
+    "rating": 3.5,
+    "rating_explanation": "The impact severity rating is low due to the community’s focus on personal cultivation and family dynamics rather than broader societal influence.",
+    "findings": [
+        {{
+            "summary": "Family as a central entity",
+            "explanation": "The Family serves as the core entity within this community. It is an organization dedicated to nurturing 斗者, with Xiao Yan, Xiao Mei, and Xiao Xun'er as its members. Xiao Mei and Xiao Xun'er are highlighted as having exceptional potential, while Xiao Yan initially struggled, leading to familial disappointment [Data: Entities (13)]. Despite this, Xiao Yan remains connected to the Family, indicating a complex relationship that evolves over time [Data: Entities (13)]."
+        }},
+        {{
+            "summary": "Role of the Clan Leader",
+            "explanation": "The Clan Leader, who is Xiao Yan's father, plays a pivotal role within the Family. As the leader, he likely influences the dynamics within the organization, potentially providing protection or guidance to Xiao Yan amidst his struggles. This relationship could be crucial in shaping Xiao Yan's development and the Family's overall trajectory [Data: Relationships (17)]."
+        }},
+        {{
+            "summary": "Xiao Yan and 斗之气旋",
+            "explanation": "Xiao Yan, a member of the Family, has successfully created 斗之气旋, an energy vortex critical for 斗者. However, he later loses this ability, which may have significant implications for his standing within the Family. This achievement and subsequent loss highlight the fluctuating nature of power and status within the community [Data: Relationships (26)]."
+        }},
+        {{
+            "summary": "Importance of 斗之气旋",
+            "explanation": "斗之气旋 is an essential element within this community, representing a concentrated form of energy vital for 斗者. Its creation is a significant milestone for practitioners, and the ability to maintain it reflects one's skill and potential. Xiao Yan's success and subsequent loss of.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 162, in invoke_json
+    return await self.try_receive_json(delegate, prompt, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 254, in try_receive_json
+    raise FailedToGenerateValidJsonError from err
+fnllm.services.errors.FailedToGenerateValidJsonError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\base\base.py", line 112, in __call__
+    return await self._invoke(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\base\base.py", line 128, in _invoke
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 70, in invoke
+    return await this.invoke_json(delegate, prompt, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\services\json.py", line 166, in invoke_json
+    raise FailedToGenerateValidJsonError from error
+fnllm.services.errors.FailedToGenerateValidJsonError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\index\operations\summarize_communities\community_reports_extractor\community_reports_extractor.py", line 80, in __call__
+    response = await self._llm(
+               ^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\openai\llm\chat.py", line 83, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\openai\llm\features\tools_parsing.py", line 120, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\site-packages\fnllm\base\base.py", line 116, in __call__
+    await self._events.on_error(
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\index\llm\load_llm.py", line 52, in on_error
+    self._on_error(error, traceback, arguments)
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\index\llm\load_llm.py", line 169, in on_error
+    callbacks.error("Error Invoking LLM", error, stack, details)
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\callbacks\workflow_callbacks_manager.py", line 51, in error
+    callback.error(message, cause, stack, details)
+  File "D:\aiwen_python-xinference\mcp\graphrag-more\graphrag\callbacks\file_workflow_callbacks.py", line 37, in error
+    json.dumps(
+  File "D:\Anaconda3\envs\graphrag\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 202, in encode
+    chunks = list(chunks)
+             ^^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "D:\Anaconda3\envs\graphrag\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type ModelMetaclass is not JSON serializable
+12:14:05,720 graphrag.callbacks.file_workflow_callbacks INFO Community Report Extraction Error details=None
+12:14:05,720 graphrag.index.operations.summarize_communities.strategies WARNING No report found for community: 1
+12:14:16,893 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+12:14:17,89 graphrag.utils.storage INFO reading table from storage: create_final_documents.parquet
+12:14:17,95 graphrag.utils.storage INFO reading table from storage: create_final_relationships.parquet
+12:14:17,102 graphrag.utils.storage INFO reading table from storage: create_final_text_units.parquet
+12:14:17,109 graphrag.utils.storage INFO reading table from storage: create_final_entities.parquet
+12:14:17,115 graphrag.utils.storage INFO reading table from storage: create_final_community_reports.parquet
+12:14:17,127 graphrag.index.flows.generate_text_embeddings INFO Creating embeddings
+12:14:17,127 graphrag.index.operations.embed_text.embed_text INFO using vector store lancedb with container_name default for embedding entity.description: default-entity-description
+12:14:17,771 graphrag.index.operations.embed_text.strategies.openai INFO embedding 31 inputs via 31 snippets using 2 batches. max_batch_size=16, max_tokens=8191
+12:14:18,259 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+12:14:18,333 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+12:14:18,397 graphrag.index.operations.embed_text.embed_text INFO using vector store lancedb with container_name default for embedding text_unit.text: default-text_unit-text
+12:14:18,405 graphrag.index.operations.embed_text.strategies.openai INFO embedding 5 inputs via 5 snippets using 1 batches. max_batch_size=16, max_tokens=8191
+12:14:18,682 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+12:14:18,734 graphrag.index.operations.embed_text.embed_text INFO using vector store lancedb with container_name default for embedding community.full_content: default-community-full_content
+12:14:18,741 graphrag.index.operations.embed_text.strategies.openai INFO embedding 2 inputs via 2 snippets using 1 batches. max_batch_size=16, max_tokens=8191
+12:14:18,951 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+12:14:19,100 graphrag.cli.index INFO All workflows completed successfully.
