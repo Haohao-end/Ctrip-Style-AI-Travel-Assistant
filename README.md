@@ -1,276 +1,115 @@
-# DeepSeek-R1 Medical Reasoning Model Fine-Tuning Guide
+# MCP Agent Orchestrator
 
-This repository provides a complete, production-oriented guide for fine-tuning **DeepSeek-R1-Distill-Qwen-1.5B** for **medical diagnosis and clinical reasoning tasks**.
-The project focuses on **Chain-of-Thought (CoT) supervised fine-tuning**, enabling the model to generate transparent, step-by-step medical reasoning.
+The **MCP Agent Orchestrator** is a professional-grade Python implementation of the **Model Context Protocol (MCP)**. It provides a structured environment for Large Language Models (LLMs) to interact with external tools and knowledge bases through a standardized communication layer. The project utilizes `FastMCP` for server-side tool definitions and an asynchronous client-side bridge to OpenAI-compatible interfaces.
 
-The training pipeline is optimized using **Unsloth**, **LoRA**, **4-bit quantization**, and **BF16 mixed precision**, making it feasible to run on a single consumer GPU.
+## System Architecture
 
----
+The project follows a decoupled client-server architecture:
 
-## Table of Contents
+1. **MCP Client**: Acts as the orchestrator. It manages the lifecycle of the MCP server, performs tool discovery, handles LLM completions, and executes tool calls returned by the model.
+2. **MCP Servers**: Independent services (Weather, RAG) that expose specific functions to the client via the Model Context Protocol.
+3. **Transport Layer**: Uses Standard Input/Output (StdIO) for high-performance, local inter-process communication.
 
-* [Project Overview](#project-overview)
-* [Key Features](#key-features)
-* [Model Architecture](#model-architecture)
-* [Dataset](#dataset)
-* [Environment Setup](#environment-setup)
-* [Training Pipeline](#training-pipeline)
-* [Prompt Design](#prompt-design)
-* [LoRA Configuration](#lora-configuration)
-* [Training Configuration](#training-configuration)
-* [Evaluation](#evaluation)
-* [Model Saving and Export](#model-saving-and-export)
-* [Model Deployment](#model-deployment)
-* [Monitoring and Visualization](#monitoring-and-visualization)
-* [Usage Notes and Limitations](#usage-notes-and-limitations)
-* [License and Disclaimer](#license-and-disclaimer)
+## Core Components
 
----
+### 1. Intelligent Client Bridge
 
-## Project Overview
+The client implementation (`rag_agent.py`, `client.py`) facilitates:
 
-Medical large language models often suffer from limited domain reasoning and opaque decision-making processes.
-This project addresses these issues by:
+* Asynchronous lifecycle management using `AsyncExitStack`.
+* Automatic tool schema conversion for OpenAI-compatible function calling.
+* Persistent conversation state and multi-turn reasoning loops.
 
-* Fine-tuning a distilled DeepSeek-R1 model on **medical reasoning data**
-* Explicitly supervising **Chain-of-Thought (CoT)** generation
-* Optimizing training efficiency with parameter-efficient methods
+### 2. Weather Service Server
 
-The resulting model is capable of producing **structured diagnostic reasoning**, rather than shallow or generic medical advice.
+The weather server (`server.py`) demonstrates real-time API integration:
 
----
+* Integration with external REST APIs (WeatherAPI).
+* Data normalization and formatting for LLM consumption.
+* Asynchronous request handling using `httpx`.
 
-## Key Features
+### 3. RAG Knowledge Server
 
-* Efficient fine-tuning using **Unsloth** (reduced VRAM and faster training)
-* Explicit **medical Chain-of-Thought supervision**
-* Parameter-efficient adaptation using **LoRA**
-* 4-bit quantized model loading
-* BF16 mixed precision training
-* Real-time experiment tracking with **Weights & Biases**
-* Seamless export to Hugging Face Hub
+The RAG server (`rag_server.py`) provides advanced document intelligence:
 
----
+* **Data Ingestion**: Support for PDF and TXT formats using `LangChain`.
+* **Vector Database**: Persistent storage via `ChromaDB`.
+* **Search Optimization**: Implements Maximal Marginal Relevance (MMR) for diverse information retrieval.
+* **Embeddings**: Integration with HuggingFace transformer models.
 
-## Model Architecture
-
-| Component    | Description                   |
-| ------------ | ----------------------------- |
-| Base Model   | DeepSeek-R1-Distill-Qwen-1.5B |
-| Architecture | Transformer (Decoder-only)    |
-| Tokenizer    | Qwen-compatible tokenizer     |
-| Quantization | 4-bit (loading)               |
-| Fine-Tuning  | LoRA (PEFT)                   |
-
----
-
-## Dataset
-
-**Dataset Source**
-
-```python
-load_dataset("FreedomIntelligence/medical-o1-reasoning-SFT", "zh")
-```
-
-**Dataset Characteristics**
-
-* Chinese medical question–answer pairs
-* Explicit Chain-of-Thought annotations
-* Covers common clinical scenarios and diagnostic reasoning paths
-* Suitable for supervised fine-tuning (SFT)
-
-**Fields Used**
-
-| Field         | Description               |
-| ------------- | ------------------------- |
-| `Question`    | Medical question          |
-| `Complex_CoT` | Annotated reasoning chain |
-| `Response`    | Final medical answer      |
-
----
-
-## Environment Setup
-
-### System Requirements
-
-* Linux (Ubuntu recommended)
-* Python ≥ 3.9
-* CUDA-compatible GPU (≥ 12 GB VRAM recommended)
-
-### Create Virtual Environment
-
-```bash
-sudo apt install python3-venv
-python3 -m venv unsloth
-source unsloth/bin/activate
-```
-
-### Install Dependencies
-
-```bash
-pip install unsloth wandb python-dotenv datasets trl transformers huggingface_hub
-```
-
----
-
-## Training Pipeline
-
-The training process consists of the following stages:
-
-1. Authentication (Hugging Face & Weights & Biases)
-2. Model and tokenizer loading (4-bit quantized)
-3. Pre-fine-tuning inference test
-4. Dataset formatting with CoT supervision
-5. LoRA configuration
-6. SFT training using `trl.SFTTrainer`
-7. Post-fine-tuning inference evaluation
-8. Model saving and merging
-9. Model upload to Hugging Face Hub
-
----
-
-## Prompt Design
-
-### Inference Prompt Template
+## Project Structure
 
 ```text
-Below is an instruction that describes a task.
-Please carefully reason step by step before answering.
+├── client.py             # Standard MCP client implementation
+├── rag_agent.py          # Specialized agent for RAG operations
+├── server.py             # Weather service MCP server
+├── rag_server.py         # RAG knowledge base MCP server
+├── test.py               # Connectivity test for LLM API
+├── .env                  # Environment configuration
+└── data/
+    ├── rag_db/           # Vector store persistence directory
+    └── doupocangqiong.txt # Sample knowledge base source
 
-### Instruction:
-You are a medical expert specializing in clinical reasoning, diagnosis, and treatment planning.
-
-### Question:
-{question}
-
-### Response:
-<think>
 ```
 
-### Training Prompt Template
+## Technical Stack
 
-The training prompt explicitly separates:
+* **Protocol**: Model Context Protocol (MCP)
+* **LLM Interface**: OpenAI SDK (Compatible with Qwen/DashScope)
+* **RAG Framework**: LangChain
+* **Vector Store**: ChromaDB
+* **Communication**: Asynchronous I/O (asyncio)
 
-* Instruction
-* Medical question
-* Chain-of-Thought reasoning
-* Final response
+## Installation
 
-This ensures the model learns both **how to reason** and **how to answer**.
+### Prerequisites
 
----
+* Python 3.10+
+* Virtual environment (recommended)
 
-## LoRA Configuration
+### Environment Setup
 
-| Parameter              | Value                       |
-| ---------------------- | --------------------------- |
-| Rank (`r`)             | 16                          |
-| Alpha                  | 16                          |
-| Dropout                | 0                           |
-| Target Modules         | Attention + FFN projections |
-| Bias                   | None                        |
-| Gradient Checkpointing | Enabled (Unsloth)           |
+Create a `.env` file in the root directory with the following variables:
 
-This configuration balances training stability, memory efficiency, and performance.
+```env
+API_KEY=your_llm_api_key
+BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
+MODEL=qwen-plus
+EMBED_MODEL=sentence-transformers/all-MiniLM-L6-v2
 
----
-
-## Training Configuration
-
-| Parameter               | Value          |
-| ----------------------- | -------------- |
-| Batch Size (per device) | 1              |
-| Gradient Accumulation   | 4              |
-| Learning Rate           | 2e-4           |
-| Scheduler               | Linear         |
-| Optimizer               | AdamW (8-bit)  |
-| Max Steps               | 60             |
-| Precision               | BF16           |
-| Logging                 | Every 10 steps |
-
----
-
-## Evaluation
-
-### Before Fine-Tuning
-
-* Generic and shallow medical advice
-* Limited diagnostic reasoning
-* No structured explanation
-
-### After Fine-Tuning
-
-* Step-by-step diagnostic reasoning
-* Explicit treatment rationale
-* Improved medical relevance and clarity
-
-Inference is performed using `FastLanguageModel.for_inference()` to maximize speed.
-
----
-
-## Model Saving and Export
-
-### Save Local Model
-
-```python
-model.save_pretrained("DeepSeek-R1-Medical-COT-Qwen-1.5B")
-tokenizer.save_pretrained("DeepSeek-R1-Medical-COT-Qwen-1.5B")
 ```
 
-### Save Merged 16-bit Model
+### Dependencies
 
-```python
-model.save_pretrained_merged(
-    "DeepSeek-R1-Medical-COT-Qwen-1.5B",
-    tokenizer,
-    save_method="merged_16bit"
-)
+```bash
+pip install mcp langchain langchain-community langchain-openai chromadb httpx python-dotenv openai
+
 ```
 
----
+## Usage
 
-## Model Deployment
+### Running the Weather Agent
 
-### Upload to Hugging Face Hub
+To start the client and connect it to the weather server:
 
-```python
-model.push_to_hub("YourName/DeepSeek-R1-Medical-COT-Qwen-1.5B")
-tokenizer.push_to_hub("YourName/DeepSeek-R1-Medical-COT-Qwen-1.5B")
-model.push_to_hub_merged(
-    "YourName/DeepSeek-R1-Medical-COT-Qwen-1.5B",
-    tokenizer,
-    save_method="merged_16bit"
-)
+```bash
+python client.py server.py
+
 ```
 
----
+### Running the RAG Agent
 
-## Monitoring and Visualization
+To initialize the knowledge base and start the RAG-enabled agent:
 
-Training metrics are logged to **Weights & Biases**, including:
+```bash
+python rag_agent.py --server_script rag_server.py
 
-* Training loss
-* Learning rate schedule
-* Step-wise performance trends
+```
 
-This allows systematic comparison of different LoRA and training configurations.
-![image](https://github.com/user-attachments/assets/53133d3d-5b34-4e17-bb0b-03dbfd4a5d8e)
+## Protocol Implementation Details
 
----
+The implementation strictly adheres to the MCP specification:
 
-## Usage Notes and Limitations
-
-1. Replace `hf_token` and `wb_token` with valid credentials before training.
-2. Start with a small subset (e.g., 500 samples) for validation runs.
-3. This model is **not a certified medical device**.
-4. Outputs are for **research and educational purposes only** and must be reviewed by licensed professionals before real-world use.
-
----
-
-## License and Disclaimer
-
-This project is released for **research and educational use only**.
-
-Medical content generated by this model **must not** be used for diagnosis or treatment decisions without professional medical oversight.
-
-The authors assume **no liability** for misuse of the model or generated outputs.
+1. **Initialization**: Client initializes the session and retrieves tool manifests.
+2. **Tool Discovery**: LLM is informed of available functions via JSON schema.
+3. **Execution**: Client intercepts `tool_calls`, executes the corresponding server function, and returns the result to the LLM for final synthesis.
