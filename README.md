@@ -1,104 +1,291 @@
-# 🏥 DeepSeek-R1 医疗诊断大模型微调指南
-
-让AI成为你的「数字听诊器」！本项目带你在医疗推理领域玩转大模型微调，全程高能⚡
-
-## 🌟 项目亮点
-
-- 🚀 **闪电训练**：基于Unsloth框架，提速2倍显存节省80%！
-- 🧠 **医学思维链**：引入CoT推理让诊断过程「透明化」
-- 💊 **专业领域适配**：专治模型「医学知识贫血症」
-- 📊 **训练可视化**：wandb实时监控训练过程，效果看得见
-- 🎯 **精准微调**：LoRA技术实现「外科手术式」参数调整
-
-## 🛠️ 快速开始
-### 环境配置
-
-```bash
-# 创建魔法训练环境 ✨
-sudo apt install python3-venv
-python3 -m venv unsloth
-source unsloth/bin/activate
-
-# 安装咒语材料 📦
-pip install unsloth wandb python-dotenv
-```
-
-### 启动微调
-
-```bash
-# 念动咒语启动训练！ 🔮
-python r1-finetuning-unsloth.py
-```
-
-## 📈 训练过程可视化
-
-```python
-# 在wandb中查看训练数据仪表盘 📊
-wandb.init(project='Fine-tune-DeepSeek-R1')
-```
-![image](https://github.com/user-attachments/assets/53133d3d-5b34-4e17-bb0b-03dbfd4a5d8e)
-
-## 🧪 效果对比
-
-### 微调前
-
-```text
-"建议多喝水，注意休息..." 🤒
-```
-
-### 微调后
-
-```text
-"根据病毒性感冒的典型病程：
-1. 退烧药仅对症处理...
-2. 推荐使用奥司他韦...
-3. 需密切观察..." 💊
-```
-
-## 🗂️ 数据集
-
-```python
-# 医学推理黄金数据集 🏆
-load_dataset("FreedomIntelligence/medical-o1-reasoning-SFT")
-```
-
-- 500+ 中文医疗场景问答
-- 包含详细思维链标注
-- 覆盖常见疾病诊断路径
-
-## ⚙️ 技术配置
-
-| 组件     | 配置                          | 说明           |
-| -------- | ----------------------------- | -------------- |
-| **模型** | DeepSeek-R1-Distill-Qwen-1.5B | 医学知识蒸馏版 |
-| **LoRA** | r=16, alpha=16                | 精准参数调整   |
-| **量化** | 4bit 加载                     | 显存优化黑科技 |
-| **训练** | BF16混合精度                  | 速度精度双保障 |
-
-## 📦 模型保存
-
-```python
-# 保存你的医学专家模型 👩⚕️
-model.save_pretrained_merged("My_Medical_GPT", save_method="merged_16bit")
-```
-
-## 🌍 模型部署
-
-```python
-# 上传到HuggingFace Hub 🌐
-model.push_to_hub_merged("YourName/Medical-R1")
-```
-
-## 📌 注意事项
-
-1. 🔑 使用前记得替换代码中的`hf_token`和`wb_token`
-2. 🧪 建议先在500条数据上试跑，再扩展数据集
-3. ⚠️ 医疗内容仅供参考，实际应用需专业审核
+Below is a **professional, standard, English GitHub `README.md`** generated from your provided content.
+It is written in a formal technical style, **without emojis**, suitable for open-source and research repositories.
 
 ---
 
-> 🎯 项目目标：打造「会思考」的医疗AI助手  
-> 💡 小贴士：试试在wandb里对比不同LoRA参数的效果！  
-> 📧 问题反馈：你的[GitHub Issue]就是我们进步的阶梯！  
+# DeepSeek-R1 Medical Reasoning Model Fine-Tuning Guide
 
-![Keep Learning](https://img.shields.io/badge/-%F0%9F%93%9A_Keep_Learning!-brightgreen)
+This repository provides a complete, production-oriented guide for fine-tuning **DeepSeek-R1-Distill-Qwen-1.5B** for **medical diagnosis and clinical reasoning tasks**.
+The project focuses on **Chain-of-Thought (CoT) supervised fine-tuning**, enabling the model to generate transparent, step-by-step medical reasoning.
+
+The training pipeline is optimized using **Unsloth**, **LoRA**, **4-bit quantization**, and **BF16 mixed precision**, making it feasible to run on a single consumer GPU.
+
+---
+
+## Table of Contents
+
+* [Project Overview](#project-overview)
+* [Key Features](#key-features)
+* [Model Architecture](#model-architecture)
+* [Dataset](#dataset)
+* [Environment Setup](#environment-setup)
+* [Training Pipeline](#training-pipeline)
+* [Prompt Design](#prompt-design)
+* [LoRA Configuration](#lora-configuration)
+* [Training Configuration](#training-configuration)
+* [Evaluation](#evaluation)
+* [Model Saving and Export](#model-saving-and-export)
+* [Model Deployment](#model-deployment)
+* [Monitoring and Visualization](#monitoring-and-visualization)
+* [Usage Notes and Limitations](#usage-notes-and-limitations)
+* [License and Disclaimer](#license-and-disclaimer)
+
+---
+
+## Project Overview
+
+Medical large language models often suffer from limited domain reasoning and opaque decision-making processes.
+This project addresses these issues by:
+
+* Fine-tuning a distilled DeepSeek-R1 model on **medical reasoning data**
+* Explicitly supervising **Chain-of-Thought (CoT)** generation
+* Optimizing training efficiency with parameter-efficient methods
+
+The resulting model is capable of producing **structured diagnostic reasoning**, rather than shallow or generic medical advice.
+
+---
+
+## Key Features
+
+* Efficient fine-tuning using **Unsloth** (reduced VRAM and faster training)
+* Explicit **medical Chain-of-Thought supervision**
+* Parameter-efficient adaptation using **LoRA**
+* 4-bit quantized model loading
+* BF16 mixed precision training
+* Real-time experiment tracking with **Weights & Biases**
+* Seamless export to Hugging Face Hub
+
+---
+
+## Model Architecture
+
+| Component    | Description                   |
+| ------------ | ----------------------------- |
+| Base Model   | DeepSeek-R1-Distill-Qwen-1.5B |
+| Architecture | Transformer (Decoder-only)    |
+| Tokenizer    | Qwen-compatible tokenizer     |
+| Quantization | 4-bit (loading)               |
+| Fine-Tuning  | LoRA (PEFT)                   |
+
+---
+
+## Dataset
+
+**Dataset Source**
+
+```python
+load_dataset("FreedomIntelligence/medical-o1-reasoning-SFT", "zh")
+```
+
+**Dataset Characteristics**
+
+* Chinese medical question–answer pairs
+* Explicit Chain-of-Thought annotations
+* Covers common clinical scenarios and diagnostic reasoning paths
+* Suitable for supervised fine-tuning (SFT)
+
+**Fields Used**
+
+| Field         | Description               |
+| ------------- | ------------------------- |
+| `Question`    | Medical question          |
+| `Complex_CoT` | Annotated reasoning chain |
+| `Response`    | Final medical answer      |
+
+---
+
+## Environment Setup
+
+### System Requirements
+
+* Linux (Ubuntu recommended)
+* Python ≥ 3.9
+* CUDA-compatible GPU (≥ 12 GB VRAM recommended)
+
+### Create Virtual Environment
+
+```bash
+sudo apt install python3-venv
+python3 -m venv unsloth
+source unsloth/bin/activate
+```
+
+### Install Dependencies
+
+```bash
+pip install unsloth wandb python-dotenv datasets trl transformers huggingface_hub
+```
+
+---
+
+## Training Pipeline
+
+The training process consists of the following stages:
+
+1. Authentication (Hugging Face & Weights & Biases)
+2. Model and tokenizer loading (4-bit quantized)
+3. Pre-fine-tuning inference test
+4. Dataset formatting with CoT supervision
+5. LoRA configuration
+6. SFT training using `trl.SFTTrainer`
+7. Post-fine-tuning inference evaluation
+8. Model saving and merging
+9. Model upload to Hugging Face Hub
+
+---
+
+## Prompt Design
+
+### Inference Prompt Template
+
+```text
+Below is an instruction that describes a task.
+Please carefully reason step by step before answering.
+
+### Instruction:
+You are a medical expert specializing in clinical reasoning, diagnosis, and treatment planning.
+
+### Question:
+{question}
+
+### Response:
+<think>
+```
+
+### Training Prompt Template
+
+The training prompt explicitly separates:
+
+* Instruction
+* Medical question
+* Chain-of-Thought reasoning
+* Final response
+
+This ensures the model learns both **how to reason** and **how to answer**.
+
+---
+
+## LoRA Configuration
+
+| Parameter              | Value                       |
+| ---------------------- | --------------------------- |
+| Rank (`r`)             | 16                          |
+| Alpha                  | 16                          |
+| Dropout                | 0                           |
+| Target Modules         | Attention + FFN projections |
+| Bias                   | None                        |
+| Gradient Checkpointing | Enabled (Unsloth)           |
+
+This configuration balances training stability, memory efficiency, and performance.
+
+---
+
+## Training Configuration
+
+| Parameter               | Value          |
+| ----------------------- | -------------- |
+| Batch Size (per device) | 1              |
+| Gradient Accumulation   | 4              |
+| Learning Rate           | 2e-4           |
+| Scheduler               | Linear         |
+| Optimizer               | AdamW (8-bit)  |
+| Max Steps               | 60             |
+| Precision               | BF16           |
+| Logging                 | Every 10 steps |
+
+---
+
+## Evaluation
+
+### Before Fine-Tuning
+
+* Generic and shallow medical advice
+* Limited diagnostic reasoning
+* No structured explanation
+
+### After Fine-Tuning
+
+* Step-by-step diagnostic reasoning
+* Explicit treatment rationale
+* Improved medical relevance and clarity
+
+Inference is performed using `FastLanguageModel.for_inference()` to maximize speed.
+
+---
+
+## Model Saving and Export
+
+### Save Local Model
+
+```python
+model.save_pretrained("DeepSeek-R1-Medical-COT-Qwen-1.5B")
+tokenizer.save_pretrained("DeepSeek-R1-Medical-COT-Qwen-1.5B")
+```
+
+### Save Merged 16-bit Model
+
+```python
+model.save_pretrained_merged(
+    "DeepSeek-R1-Medical-COT-Qwen-1.5B",
+    tokenizer,
+    save_method="merged_16bit"
+)
+```
+
+---
+
+## Model Deployment
+
+### Upload to Hugging Face Hub
+
+```python
+model.push_to_hub("YourName/DeepSeek-R1-Medical-COT-Qwen-1.5B")
+tokenizer.push_to_hub("YourName/DeepSeek-R1-Medical-COT-Qwen-1.5B")
+model.push_to_hub_merged(
+    "YourName/DeepSeek-R1-Medical-COT-Qwen-1.5B",
+    tokenizer,
+    save_method="merged_16bit"
+)
+```
+
+---
+
+## Monitoring and Visualization
+
+Training metrics are logged to **Weights & Biases**, including:
+
+* Training loss
+* Learning rate schedule
+* Step-wise performance trends
+
+This allows systematic comparison of different LoRA and training configurations.
+
+---
+
+## Usage Notes and Limitations
+
+1. Replace `hf_token` and `wb_token` with valid credentials before training.
+2. Start with a small subset (e.g., 500 samples) for validation runs.
+3. This model is **not a certified medical device**.
+4. Outputs are for **research and educational purposes only** and must be reviewed by licensed professionals before real-world use.
+
+---
+
+## License and Disclaimer
+
+This project is released for **research and educational use only**.
+
+Medical content generated by this model **must not** be used for diagnosis or treatment decisions without professional medical oversight.
+
+The authors assume **no liability** for misuse of the model or generated outputs.
+
+---
+
+If you want, I can also provide:
+
+* A **citation-ready academic README**
+* A **Hugging Face model card**
+* A **training ablation table template**
+* A **reproducibility checklist**
+
+Just tell me.
